@@ -1,57 +1,32 @@
-# RegieLive Subtitrări — Addon Stremio
+# Stremio RegieLive Subtitrări
 
-Addon Stremio pentru subtitrări românești de pe subtitrari.regielive.ro.
+Addon Stremio pentru subtitrări românești de pe RegieLive.
 
-## Rulare locală
+## Instalare online pe Render
+
+1. Urcă acest proiect pe GitHub.
+2. Intră pe https://render.com și conectează-te cu GitHub.
+3. New → Web Service → alege repository-ul.
+4. Setări:
+   - Build Command: `npm install`
+   - Start Command: `npm start`
+5. După primul deploy, copiază linkul Render, de exemplu:
+   `https://stremio-regielive.onrender.com`
+6. În Render → Environment adaugă:
+   `PUBLIC_URL=https://stremio-regielive.onrender.com`
+7. Redeploy.
+8. În Stremio instalează:
+   `https://stremio-regielive.onrender.com/manifest.json`
+
+## Local, pentru test
 
 ```bash
 npm install
 npm start
 ```
 
-Addon local:
+Deschide:
 
 ```text
 http://localhost:7000/manifest.json
 ```
-
-## Rulare online
-
-Pentru Render, Railway, Fly.io sau alt hosting Node.js:
-
-1. Încarcă proiectul pe GitHub.
-2. Setează comanda de instalare:
-
-```bash
-npm install
-```
-
-3. Setează comanda de pornire:
-
-```bash
-npm start
-```
-
-4. Setează variabila de mediu:
-
-```text
-PUBLIC_URL=https://github.com/ioman2/stremio-regielive
-```
-
-Exemplu Render:
-
-```text
-PUBLIC_URL=https://stremio-regielive.onrender.com
-```
-
-Apoi instalezi în Stremio:
-
-```text
-https://github.com/ioman2/stremio-regielive/manifest.json
-```
-
-## Observații importante
-
-- Nu folosi `localhost` dacă vrei să meargă online.
-- Serverul are nevoie de un host Node.js permanent sau semi-permanent.
-- Pe planurile gratuite, unele platforme pot adormi serviciul după inactivitate.

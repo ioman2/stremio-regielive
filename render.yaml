@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: stremio-regielive
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PUBLIC_URL
+        sync: false

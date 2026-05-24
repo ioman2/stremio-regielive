@@ -210,6 +210,13 @@ const server = http.createServer(async (req, res) => {
   const urlObj = new URL(req.url, `http://localhost:${PORT}`);
   const pathname = urlObj.pathname;
 
+  if (pathname === '/') {
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    res.writeHead(200);
+    res.end('RegieLive Stremio Addon OK. Install: ' + PUBLIC_URL + '/manifest.json');
+    return;
+  }
+
   if (pathname === '/manifest.json') {
     res.setHeader('Content-Type', 'application/json');
     res.writeHead(200);
@@ -218,7 +225,7 @@ const server = http.createServer(async (req, res) => {
   }
 
   // Rute SDK standard
-  const routeHandled = handleAddonRoute(addonInterface, pathname, urlObj.searchParams, res);
+  const routeHandled = await handleAddonRoute(addonInterface, pathname, urlObj.searchParams, res);
   if (!routeHandled) {
     res.writeHead(404);
     res.end('Not found');
@@ -226,22 +233,22 @@ const server = http.createServer(async (req, res) => {
 });
 
 // ─── Router simplu pentru SDK ────────────────────────────────────────────────
-function handleAddonRoute(iface, pathname, params, res) {
+async function handleAddonRoute(iface, pathname, params, res) {
   // /subtitles/{type}/{id}.json
   const subMatch = pathname.match(/^\/subtitles\/([^/]+)\/(.+)\.json$/);
   if (subMatch) {
     const [, type, id] = subMatch;
     const decodedId = decodeURIComponent(id);
-    iface.get({ resource: 'subtitles', type, id: decodedId }, (err, result) => {
-      res.setHeader('Content-Type', 'application/json');
-      if (err) {
-        res.writeHead(500);
-        res.end(JSON.stringify({ subtitles: [] }));
-      } else {
-        res.writeHead(200);
-        res.end(JSON.stringify(result));
-      }
-    });
+    res.setHeader('Content-Type', 'application/json');
+    try {
+      const result = await iface.get({ resource: 'subtitles', type, id: decodedId });
+      res.writeHead(200);
+      res.end(JSON.stringify(result || { subtitles: [] }));
+    } catch (err) {
+      console.error('[AddonRoute] Eroare subtitles:', err && err.message ? err.message : err);
+      res.writeHead(200);
+      res.end(JSON.stringify({ subtitles: [] }));
+    }
     return true;
   }
   return false;
