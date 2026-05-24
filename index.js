@@ -25,6 +25,7 @@ const SEARCH_URL = `${API_BASE}/cauta.php`;
 const DL_URL     = `${API_BASE}/descarca.php`;
 const API_KEY    = 'YWxleGFuZHJ1LmhlcmN1bGVhbnVAZ21haWwuY29t';
 const PORT       = process.env.PORT || 7000;
+const PUBLIC_URL = (process.env.PUBLIC_URL || `http://localhost:${PORT}`).replace(/\/$/, '');
 
 // Agent care dezactivează verificarea certificatelor (necesar uneori pentru regielive)
 const httpsAgent = new https.Agent({ rejectUnauthorized: false });
@@ -111,7 +112,7 @@ builder.defineSubtitlesHandler(async ({ type, id }) => {
   const subtitles = lista.map((sub, idx) => {
     const subId = sub.id || idx;
     // URL proxy prin serverul local — addon-ul descarcă și trimite fișierul direct
-    const url = `http://localhost:${PORT}/subtitle-proxy/${subId}`;
+    const url = `${PUBLIC_URL}/subtitle-proxy/${subId}`;
 
     const translator  = sub.traducator || sub.user || 'Anonim';
     const releaseInfo = sub.release || '';
@@ -285,5 +286,6 @@ function extractSrtFromZip(buffer) {
 // ─── Start ────────────────────────────────────────────────────────────────────
 server.listen(PORT, () => {
   console.log(`\n✅ RegieLive Stremio Addon pornit pe http://localhost:${PORT}`);
-  console.log(`📌 Adaugă în Stremio: http://localhost:${PORT}/manifest.json\n`);
+  console.log(`🌐 URL public setat: ${PUBLIC_URL}`);
+  console.log(`📌 Adaugă în Stremio: ${PUBLIC_URL}/manifest.json\n`);
 });

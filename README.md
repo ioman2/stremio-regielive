@@ -1,79 +1,57 @@
-# 🎬 RegieLive Subtitrări — Addon Stremio
+# RegieLive Subtitrări — Addon Stremio
 
-Addon pentru Stremio care aduce subtitrări românești direct de pe **subtitrari.regielive.ro**.
+Addon Stremio pentru subtitrări românești de pe subtitrari.regielive.ro.
 
-## ✅ Funcționalități
+## Rulare locală
 
-- Subtitrări în **limba română** pentru filme și seriale
-- Căutare automată după **IMDb ID**
-- Suport complet pentru **filme** și **seriale** (sezon + episod)
-- Afișează traducătorul și release-ul subtitrării
-
----
-
-## 🚀 Instalare
-
-### Cerințe
-- [Node.js](https://nodejs.org/) v14 sau mai nou
-- [Stremio](https://www.stremio.com/) instalat
-
-### Pași
-
-1. **Clonează sau descarcă** proiectul:
-   ```bash
-   # Dacă ai git:
-   git clone <url-proiect>
-   cd stremio-regielive
-
-   # Sau extrage arhiva ZIP descărcată
-   ```
-
-2. **Instalează dependențele:**
-   ```bash
-   npm install
-   ```
-
-3. **Pornește addon-ul:**
-   ```bash
-   npm start
-   ```
-   Vei vedea:
-   ```
-   ✅ RegieLive Stremio Addon pornit pe http://localhost:7000
-   📌 Adaugă în Stremio: http://localhost:7000/manifest.json
-   ```
-
-4. **Adaugă în Stremio:**
-   - Deschide Stremio
-   - Mergi la **Addon-uri** (iconița puzzle 🧩)
-   - Click pe **+ Instalare addon comunitar**
-   - Introdu URL-ul: `http://localhost:7000/manifest.json`
-   - Click **Instalare**
-
----
-
-## 🔧 Configurare port diferit
-
-Dacă portul 7000 e ocupat, poți schimba:
 ```bash
-PORT=8080 npm start
+npm install
+npm start
 ```
 
----
+Addon local:
 
-## ℹ️ Cum funcționează
+```text
+http://localhost:7000/manifest.json
+```
 
-Addon-ul trimite cereri către API-ul public al RegieLive (`api.regielive.ro`) folosind aceeași interfață ca addon-ul Kodi oficial. Subtitrările sunt returnate direct în Stremio și se pot selecta în playerul de video.
+## Rulare online
 
----
+Pentru Render, Railway, Fly.io sau alt hosting Node.js:
 
-## 🐛 Probleme cunoscute
+1. Încarcă proiectul pe GitHub.
+2. Setează comanda de instalare:
 
-- RegieLive API poate fi instabil uneori (returnează erori JSON) — addon-ul gestionează aceste erori elegant
-- Dacă nu apar subtitrări, verifică că serverul rulează și că Stremio poate accesa `localhost`
+```bash
+npm install
+```
 
----
+3. Setează comanda de pornire:
 
-## 📜 Licență
+```bash
+npm start
+```
 
-MIT
+4. Setează variabila de mediu:
+
+```text
+PUBLIC_URL=https://domeniul-tau-public
+```
+
+Exemplu Render:
+
+```text
+PUBLIC_URL=https://stremio-regielive.onrender.com
+```
+
+Apoi instalezi în Stremio:
+
+```text
+https://domeniul-tau-public/manifest.json
+```
+
+## Observații importante
+
+- Nu folosi `localhost` dacă vrei să meargă online.
+- Serverul are nevoie de un host Node.js permanent sau semi-permanent.
+- Pe planurile gratuite, unele platforme pot adormi serviciul după inactivitate.
