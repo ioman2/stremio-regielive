@@ -35,7 +35,7 @@ npm start
 4. Setează variabila de mediu:
 
 ```text
-PUBLIC_URL=https://domeniul-tau-public
+PUBLIC_URL=https://github.com/ioman2/stremio-regielive
 ```
 
 Exemplu Render:
@@ -47,7 +47,7 @@ PUBLIC_URL=https://stremio-regielive.onrender.com
 Apoi instalezi în Stremio:
 
 ```text
-https://domeniul-tau-public/manifest.json
+https://github.com/ioman2/stremio-regielive/manifest.json
 ```
 
 ## Observații importante
